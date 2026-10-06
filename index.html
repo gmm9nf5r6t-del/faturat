@@ -28,6 +28,7 @@ main{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:16px;padding
 table{width:100%;border-collapse:collapse}th,td{border:1px solid #999;padding:3px 5px;font-size:11px}th{background:#f1f1f1}td.n,th.n{text-align:right}
 .tot{margin-left:auto;width:260px;margin-top:10px}.tot div{display:flex;justify-content:space-between;padding:2px 0}.tot .g{font-weight:700;border-top:2px solid #111;font-size:14px;margin-top:4px;padding-top:4px}
 .sig{position:absolute;left:34px;right:34px;bottom:28px;display:flex;justify-content:space-between;text-align:center}.sig span{display:block;width:200px;border-top:1px solid #111;padding-top:3px}
+.qr{position:absolute;left:50%;transform:translateX(-50%);bottom:64px;text-align:center;font-size:10px}.qr img{width:96px;height:96px;display:block}
 #stamp{position:absolute;cursor:move;touch-action:none;mix-blend-mode:multiply;user-select:none}
 .ce{outline:none}[contenteditable]:hover{background:#fff6cc}
 #pc{display:none}
@@ -61,11 +62,12 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #999;padding:3p
 <table><thead><tr><th>Nr</th><th>Kodi</th><th>Përshkrimi</th><th>Njësi</th><th class="n">Sasia</th><th class="n">Rabati %</th><th class="np"></th></tr></thead><tbody id="tb"></tbody></table>
 <div class="tot"><div><span>Vlera pa TVSH</span><span id="t1" data-t="t1" class="ce"></span></div><div><span>Rabati</span><span id="t2" data-t="t2" class="ce"></span></div><div><span>TVSH</span><span id="t3" data-t="t3" class="ce"></span></div><div class="g"><span>Shuma e faturës</span><span id="t4" data-t="t4" class="ce"></span></div><div><span>Pagesa e kryer</span><span id="t5"></span></div><div><b>Për pagesë</b><b id="t6" data-t="t6" class="ce"></b></div></div>
 <img id="stamp" alt="" hidden>
+<div class="qr"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDgiIGhlaWdodD0iMTQ4IiBjbGFzcz0ic2Vnbm8iPjxnIHRyYW5zZm9ybT0ic2NhbGUoNCkiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMzd2MzdoLTM3eiIvPjxwYXRoIGNsYXNzPSJxcmxpbmUiIHN0cm9rZT0iIzAwMCIgZD0iTTIgMi41aDdtMiAwaDJtMSAwaDJtMSAwaDVtMiAwaDJtMiAwaDdtLTMzIDFoMW01IDBoMW0yIDBoMm0yIDBoM20yIDBoMW0xIDBoNW0xIDBoMW01IDBoMW0tMzMgMWgxbTEgMGgzbTEgMGgxbTQgMGgzbTIgMGgxbTEgMGgzbTUgMGgxbTEgMGgzbTEgMGgxbS0zMyAxaDFtMSAwaDNtMSAwaDFtNCAwaDFtMSAwaDZtNCAwaDJtMSAwaDFtMSAwaDNtMSAwaDFtLTMzIDFoMW0xIDBoM20xIDBoMW01IDBoMW0xIDBoMW0yIDBoOG0xIDBoMW0xIDBoM20xIDBoMW0tMzMgMWgxbTUgMGgxbTEgMGgxbTMgMGgybTEgMGgybTEgMGgzbTEgMGgxbTMgMGgxbTUgMGgxbS0zMyAxaDdtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDdtLTI0IDFoMm0zIDBoNW0yIDBoMW0yIDBoMW0tMjUgMWgxbTIgMGgxbTEgMGgybTEgMGgxbTEgMGgxbTIgMGgxbTQgMGgxbTIgMGgxbTIgMGgybTEgMGgxbS0yOCAxaDRtMSAwaDFtMiAwaDJtMiAwaDNtMSAwaDJtMiAwaDFtMyAwaDRtNCAwaDFtLTMxIDFoMW0xIDBoNG0xIDBoMW0xIDBoMW0xIDBoMm0xIDBoMW0xIDBoMm00IDBoNW0xIDBoM20tMzEgMWgxbTEgMGgxbTIgMGgybTEgMGgxbTIgMGgxbTIgMGgxbTEgMGgxbTEgMGgybTEgMGgybTMgMGgybTEgMGgxbS0zMiAxaDJtMiAwaDRtMSAwaDFtMiAwaDFtMSAwaDNtMSAwaDFtMSAwaDVtMSAwaDJtMSAwaDFtMSAwaDFtLTMwIDFoMW0xIDBoMW0yIDBoMW0yIDBoM20xIDBoMm0yIDBoMW02IDBoOG0tMzMgMWgxbTMgMGg0bTMgMGgzbTEgMGgybTMgMGgybTEgMGgxbTEgMGgybTIgMGgzbS0zMSAxaDFtMyAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMiAwaDRtMSAwaDNtMiAwaDFtMiAwaDFtMSAwaDFtLTMyIDFoMW0xIDBoMm0xIDBoNW0xIDBoMW0xIDBoMW0xIDBoM20yIDBoM20xIDBoMW0xIDBoMW0xIDBoMm0xIDBoMW0tMzIgMWgxbTEgMGgzbTIgMGgxbTEgMGgybTYgMGgxbTMgMGgxbTEgMGgxbTMgMGgxbTEgMGgxbTEgMGgxbS0yOSAxaDJtMSAwaDFtMSAwaDFtMiAwaDRtMiAwaDFtMiAwaDFtMSAwaDFtMyAwaDFtMyAwaDFtMSAwaDFtLTMzIDFoMW0zIDBoMm0zIDBoMW0xIDBoNG0xIDBoMW0yIDBoNG0xIDBoMW0xIDBoMm00IDBoMW0tMzMgMWgxbTIgMGgxbTIgMGgxbTEgMGgybTcgMGgxbTEgMGg1bTMgMGgxbS0yNiAxaDJtMSAwaDFtMiAwaDhtNSAwaDJtMiAwaDNtMSAwaDRtLTMzIDFoMm0yIDBoMW0xIDBoMm0zIDBoMm0xIDBoMW0xIDBoMW0yIDBoMW0xIDBoMm0xIDBoMW0xIDBoMm0yIDBoMW0xIDBoMW0tMzIgMWgybTIgMGgxbTUgMGgybTEgMGgybTIgMGgxbTIgMGgzbTMgMGgxbS0yOCAxaDFtMSAwaDJtMiAwaDFtMSAwaDJtNCAwaDFtMiAwaDFtMiAwaDJtMiAwaDZtMiAwaDFtLTI1IDFoMW0xIDBoNG0zIDBoMW0xIDBoMW0xIDBoMm0xIDBoMW0zIDBoMm0xIDBoMm0tMzMgMWg3bTIgMGg0bTEgMGgxbTEgMGgzbTEgMGgxbTEgMGgxbTEgMGgxbTEgMGgxbTEgMGgzbS0zMSAxaDFtNSAwaDFtMSAwaDNtNCAwaDFtMSAwaDVtMiAwaDFtMyAwaDFtMiAwaDFtLTMyIDFoMW0xIDBoM20xIDBoMW0zIDBoMW0xIDBoMm00IDBoMm0xIDBoMW0yIDBoNm0yIDBoMW0tMzMgMWgxbTEgMGgzbTEgMGgxbTEgMGgzbTQgMGgybTEgMGgxbTEgMGgxbTEgMGgzbTEgMGgxbTEgMGgxbS0yOSAxaDFtMSAwaDNtMSAwaDFtNCAwaDJtMiAwaDJtMSAwaDFtMSAwaDFtMiAwaDNtMiAwaDJtMiAwaDFtLTMzIDFoMW01IDBoMW0yIDBoMW0yIDBoMW0xIDBoMW0yIDBoMm0yIDBoMm0xIDBoM20yIDBoMW0tMzAgMWg3bTEgMGgxbTEgMGgybTMgMGgxbTMgMGgxbTEgMGgxbTEgMGgybTMgMGgxbTIgMGgxIi8+PC9nPjwvc3ZnPgo=" alt="QR lokacioni"><span>Lokacioni</span></div>
 <div class="sig"><span>Furnitori</span><span>Dërgoi</span><span>Pranoi</span></div>
 </div></div>
 </main>
 <script>
-const $=i=>document.getElementById(i),K='fakturat_v1';const CODE='B.P..B1300001003228602';
+const $=i=>document.getElementById(i),K='fakturat_v1';const CODE='B.P.B 1300001003228602';
 let S={inv:[],cur:null,logo:null};
 const def=()=>({id:Date.now()+'',nr:String(new Date().getFullYear())+'-'+(S.inv.length+1),dt:new Date().toISOString().slice(0,10),dd:new Date().toISOString().slice(0,10),
 se:"Enisi Service SH.P.K.\nPodujevë, Magjistralja Podujevë-Prishtinë\nTel: 049 876 039",bu:"Emri i klientit\nAdresa\nNIPT:",vat:18,paid:0,
@@ -76,7 +78,7 @@ const cur=()=>S.inv.find(x=>x.id===S.cur);
 const f=n=>(+n||0).toFixed(2);
 function list(){$('list').innerHTML=S.inv.map(x=>`<div class="${x.id===S.cur?'on':''}" data-id="${x.id}"><span>Nr. ${x.nr}</span><span>${x.dt}</span></div>`).join('')||'<div>Asnjë faturë ende</div>';
 $('list').querySelectorAll('[data-id]').forEach(e=>e.onclick=()=>{S.cur=e.dataset.id;save();load()})}
-function load(){const v=cur();list();if(!v)return;v.items.forEach(x=>{if(!x.k)x.k=CODE});save();
+function load(){const v=cur();list();if(!v)return;v.items.forEach(x=>{if(!x.k||x.k==='B.P..B1300001003228602')x.k=CODE});save();
 for(const [i,k] of [['nr','nr'],['dt','dt'],['dd','dd'],['se','se'],['bu','bu'],['vat','vat'],['paid','paid']])$(i).value=v[k];
 if(S.logo){$('logo').src=S.logo;$('hl').src=S.logo}
 render()}
@@ -121,3 +123,4 @@ const done=()=>{document.body.classList.remove('multi');b.remove();removeEventLi
 $('mO').onclick=()=>mode(false);$('mC').onclick=()=>mode(true);
 if(!S.inv.length){const v=def();S.inv.push(v);S.cur=v.id}if(!cur())S.cur=S.inv[0].id;load();
 </script></body></html>
+
