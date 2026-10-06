@@ -65,18 +65,18 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #999;padding:3p
 </div></div>
 </main>
 <script>
-const $=i=>document.getElementById(i),K='fakturat_v1';
+const $=i=>document.getElementById(i),K='fakturat_v1';const CODE='B.P..B1300001003228602';
 let S={inv:[],cur:null,logo:null};
 const def=()=>({id:Date.now()+'',nr:String(new Date().getFullYear())+'-'+(S.inv.length+1),dt:new Date().toISOString().slice(0,10),dd:new Date().toISOString().slice(0,10),
 se:"Enisi Service SH.P.K.\nPodujevë, Magjistralja Podujevë-Prishtinë\nTel: 049 876 039",bu:"Emri i klientit\nAdresa\nNIPT:",vat:18,paid:0,
-items:[{k:'',d:'Përshkrimi i artikullit',u:'COPË',q:1,p:0,r:0}],stamp:null,sx:60,sy:760,ss:110});
+items:[{k:CODE,d:'Përshkrimi i artikullit',u:'COPË',q:1,p:0,r:0}],stamp:null,sx:60,sy:760,ss:110});
 try{S=Object.assign(S,JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){}
 function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
 const cur=()=>S.inv.find(x=>x.id===S.cur);
 const f=n=>(+n||0).toFixed(2);
 function list(){$('list').innerHTML=S.inv.map(x=>`<div class="${x.id===S.cur?'on':''}" data-id="${x.id}"><span>Nr. ${x.nr}</span><span>${x.dt}</span></div>`).join('')||'<div>Asnjë faturë ende</div>';
 $('list').querySelectorAll('[data-id]').forEach(e=>e.onclick=()=>{S.cur=e.dataset.id;save();load()})}
-function load(){const v=cur();list();if(!v)return;
+function load(){const v=cur();list();if(!v)return;v.items.forEach(x=>{if(!x.k)x.k=CODE});save();
 for(const [i,k] of [['nr','nr'],['dt','dt'],['dd','dd'],['se','se'],['bu','bu'],['vat','vat'],['paid','paid']])$(i).value=v[k];
 if(S.logo){$('logo').src=S.logo;$('hl').src=S.logo}
 render()}
@@ -103,7 +103,7 @@ $('new').onclick=()=>{const v=def();S.inv.unshift(v);S.cur=v.id;save();load()};
 $('dup').onclick=()=>{const c=cur();if(!c)return;const v=JSON.parse(JSON.stringify(c));v.id=Date.now()+'';v.nr+='-kopje';S.inv.unshift(v);S.cur=v.id;save();load()};
 $('del').onclick=()=>{if(!cur()||!confirm('Ta fshij faturën?'))return;S.inv=S.inv.filter(x=>x.id!==S.cur);S.cur=S.inv[0]?.id;if(!S.cur){const v=def();S.inv.push(v);S.cur=v.id}save();load()};
 $('rs').onclick=()=>{const v=cur();v.ov={};save();render()};
-$('add').onclick=()=>{cur().items.push({k:'',d:'Artikull i ri',u:'COPË',q:1,p:0,r:0});save();render()};
+$('add').onclick=()=>{cur().items.push({k:CODE,d:'Artikull i ri',u:'COPË',q:1,p:0,r:0});save();render()};
 function rd(file,cb){const r=new FileReader();r.onload=()=>cb(r.result);r.readAsDataURL(file)}
 $('lf').onchange=e=>e.target.files[0]&&rd(e.target.files[0],d=>{S.logo=d;save();load()});
 $('sf').onchange=e=>e.target.files[0]&&rd(e.target.files[0],d=>{cur().stamp=d;save();render()});
